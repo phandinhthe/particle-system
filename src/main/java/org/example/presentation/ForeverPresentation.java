@@ -5,34 +5,23 @@ import org.example.dto.AsciiImageCollection;
 import java.util.concurrent.TimeUnit;
 
 public class ForeverPresentation implements Presentation {
-	private final long timeoutAnimation;
-	private final TimeUnit timeUnit;
-	private final AsciiImageCollection images;
-
-	public ForeverPresentation(AsciiImageCollection images, long timeoutAnimation, TimeUnit timeUnit) {
-		this.images = images;
-		this.timeoutAnimation = timeoutAnimation;
-		this.timeUnit = timeUnit;
-	}
-
-	private void clearConsole() {
+	private void clearConsole(long animationTimeout, TimeUnit timeUnit) {
 		try {
 			ProcessBuilder processBuilder = new ProcessBuilder();
-			processBuilder.command("clear").inheritIO().start().waitFor(timeoutAnimation, timeUnit);
+			processBuilder.command("clear").inheritIO().start().waitFor(animationTimeout, timeUnit);
 		} catch (Exception exception) {
 			throw new RuntimeException(exception);
 		}
 	}
 
-	@Override
-	public void present() {
+	public void present(AsciiImageCollection images, long timeoutAnimation, TimeUnit timeUnit) {
 		try {
 			int index = 0;
 			int size = images.size();
 			while (true) {
 				System.out.println(images.get(index).getContent());
 				timeUnit.sleep(timeoutAnimation);
-				clearConsole();
+				clearConsole(timeoutAnimation, timeUnit);
 				index = (index + 1) % size;
 			}
 		} catch (Exception exception) {

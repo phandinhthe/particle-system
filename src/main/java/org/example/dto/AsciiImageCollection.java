@@ -1,5 +1,9 @@
 package org.example.dto;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.URI;
+
 public class AsciiImageCollection {
 	private AsciiImage[] images;
 
@@ -12,6 +16,13 @@ public class AsciiImageCollection {
 	}
 
 	public AsciiImageCollection add(int index, String content) {
+		validate(index, content);
+		return add(AsciiImageGenerator.builder().index(index).content(content).build());
+	}
+
+	public AsciiImageCollection add(int index, URI uri) throws IOException {
+		InputStream inputStream = this.getClass().getResourceAsStream(uri.getPath());
+		String content = new String(inputStream.readAllBytes());
 		validate(index, content);
 		return add(AsciiImageGenerator.builder().index(index).content(content).build());
 	}
