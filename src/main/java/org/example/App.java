@@ -13,7 +13,7 @@ import java.net.URI;
 public class App {
 	public static void main(String[] args) {
 		try {
-			AsciiImageCollection collection = new AsciiImageCollection(2);
+			AsciiImageCollection collection = new AsciiImageCollection();
 			collection.add(0, URI.create("/images/coffee/coffee0.txt"));
 			collection.add(1, URI.create("/images/coffee/coffee1.txt"));
 

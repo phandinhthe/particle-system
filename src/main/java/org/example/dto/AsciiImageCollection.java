@@ -3,16 +3,19 @@ package org.example.dto;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
+import java.util.ArrayList;
+import java.util.List;
 
 public class AsciiImageCollection {
-	private AsciiImage[] images;
+	private final int MAX_SIZE = 1000;
+	private List<AsciiImage> images;
 
-	public AsciiImage[] getImages() {
+	public List<AsciiImage> getImages() {
 		return images;
 	}
 
-	public AsciiImageCollection(int size) {
-		images = new AsciiImage[size];
+	public AsciiImageCollection() {
+		images = new ArrayList<>(MAX_SIZE);
 	}
 
 	public AsciiImageCollection add(int index, String content) {
@@ -28,17 +31,16 @@ public class AsciiImageCollection {
 	}
 
 	private AsciiImageCollection add(AsciiImage image) {
-		int index = image.index();
-		images[index] = image;
+		images.add(image.index, image);
 		return this;
 	}
 
 	public AsciiImage get(int index) {
-		return images[index];
+		return images.get(index);
 	}
 
 	public int size() {
-		return images.length;
+		return images.size();
 	}
 
 	private void validate(int index, String content) {

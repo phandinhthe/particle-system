@@ -19,7 +19,7 @@ public class ForeverPresentation implements Presentation {
 			int index = 0;
 			int size = images.size();
 			while (true) {
-				System.out.println(images.get(index).getContent());
+				System.out.println(images.get(index).content());
 				timeUnit.sleep(timeoutAnimation);
 				clearConsole(timeoutAnimation, timeUnit);
 				index = (index + 1) % size;

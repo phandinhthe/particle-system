@@ -13,7 +13,7 @@ public class AsciiImage {
 		return index;
 	}
 
-	public String getContent() {
+	public String content() {
 		return content;
 	}
 
