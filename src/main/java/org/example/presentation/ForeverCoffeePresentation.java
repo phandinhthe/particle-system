@@ -6,6 +6,10 @@ import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
 public class ForeverCoffeePresentation implements Presentation {
+	private static final String WHITE = "\033[107m \033[0m";
+	private static final String DARK_WHITE = "\033[47m \033[0m";
+	private static final String BRIGHT_BLACK = "\033[100m \033[0m";
+
 	private ProcessBuilder processClearConsole() {
 		ProcessBuilder processBuilder = new ProcessBuilder();
 		try {
@@ -42,9 +46,6 @@ public class ForeverCoffeePresentation implements Presentation {
 		int boldColMax = col - boldColMin;
 		StringBuilder smoke = new StringBuilder();
 		Random random = new Random();
-		String WHITE = "\033[107m \033[0m";
-		String DARK_WHITE = "\033[47m \033[0m";
-		String BRIGHT_BLACK = "\033[100m \033[0m";
 		for (int i = 0; i < row; i++) {
 			smoke.append(INDENT);
 			for (int j = 0; j < col; j++) {
