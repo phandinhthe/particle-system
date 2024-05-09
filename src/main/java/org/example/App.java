@@ -15,9 +15,6 @@ public class App {
 		try {
 			AsciiImageCollection collection = new AsciiImageCollection();
 			collection.add(0, URI.create("/images/coffee/coffee0.txt"));
-			collection.add(1, URI.create("/images/coffee/coffee1.txt"));
-			collection.add(2, URI.create("/images/coffee/coffee2.txt"));
-
 			Presentation presentation = new ForeverCoffeePresentation();
 			presentation.present(collection);
 

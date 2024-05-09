@@ -6,24 +6,25 @@ import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
 public class ForeverCoffeePresentation implements Presentation {
-	private void clearConsole(long animationTimeout, TimeUnit timeUnit) {
+	private ProcessBuilder processClearConsole() {
+		ProcessBuilder processBuilder = new ProcessBuilder();
 		try {
-			ProcessBuilder processBuilder = new ProcessBuilder();
-			processBuilder.command("clear").inheritIO().start().waitFor(animationTimeout, timeUnit);
+			processBuilder = processBuilder.command("clear").inheritIO();
 		} catch (Exception exception) {
 			throw new RuntimeException(exception);
+		} finally {
+			return processBuilder;
 		}
 	}
 
-	public void present(AsciiImageCollection images, long timeoutAnimation, TimeUnit timeUnit) {
+	public void present(AsciiImageCollection images, long animationTimeout, TimeUnit timeUnit) {
 		try {
-			int index = 0;
-			int size = images.size();
+			String content = images.get(0).content();
+			ProcessBuilder clearConsoleProcess = processClearConsole();
 			while (true) {
-				System.out.println(smoke().concat(images.get(index).content()));
-				timeUnit.sleep(timeoutAnimation);
-				clearConsole(timeoutAnimation, timeUnit);
-				index = (index + 1) % size;
+				System.out.println(smoke().concat(content));
+				timeUnit.sleep(animationTimeout);
+				clearConsoleProcess.start().waitFor(animationTimeout, timeUnit);
 			}
 		} catch (Exception exception) {
 			throw new RuntimeException(exception);
@@ -34,7 +35,7 @@ public class ForeverCoffeePresentation implements Presentation {
 		final String INDENT = " ".repeat(78);
 		int row = 5;
 		int col = 40;
-		int spaceCol = 5;
+		int spaceCol = 4;
 
 		int boldRow = row - 1;
 		int boldColMin = 10;
@@ -45,7 +46,7 @@ public class ForeverCoffeePresentation implements Presentation {
 		String DARK_WHITE = "\033[47m \033[0m";
 		String BRIGHT_BLACK = "\033[100m \033[0m";
 		for (int i = 0; i < row; i++) {
-				smoke.append(INDENT);
+			smoke.append(INDENT);
 			for (int j = 0; j < col; j++) {
 				if (j >= boldColMin && j <= boldColMax && i >= boldRow) {
 					smoke.append(WHITE);
