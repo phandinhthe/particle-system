@@ -27,6 +27,5 @@ public class ForeverPresentation implements Presentation {
 		} catch (Exception exception) {
 			throw new RuntimeException(exception);
 		}
-
 	}
 }
